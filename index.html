@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pedro Henrique da Silva | Desenvolvedor Front-End Júnior</title>
+    <meta
+      name="description"
+      content="Portfólio de Pedro Henrique da Silva, desenvolvedor front-end júnior. Projetos com React, Vite e WordPress, habilidades e contato."
+    />
+    <meta name="theme-color" content="#0d0a0b" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Open Graph básico -->
+    <meta property="og:title" content="Pedro Henrique da Silva | Dev Front-End" />
+    <meta
+      property="og:description"
+      content="Portfólio de Pedro Henrique da Silva, desenvolvedor front-end júnior."
+    />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Ícones de tecnologia (Devicon via CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/devicon@2.16.0/devicon.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("portfolioTheme");
+          var theme =
+            saved ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <canvas id="particlesCanvas" aria-hidden="true"></canvas>
+
+    <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+    <div id="bootScreen" class="boot-screen" aria-hidden="true">
+      <div class="boot-log" id="bootLog"></div>
+    </div>
+
+    <!-- ============================== NAV ============================== -->
+    <header>
+      <nav id="mainNav">
+        <a href="#hero" class="brand">PHSILVA<span class="text-primary">.DEV</span></a>
+
+        <button
+          id="navToggle"
+          class="nav-toggle"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="mainNavLinks"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="navlinks" id="mainNavLinks">
+          <a href="#about">SOBRE</a>
+          <a href="#experience">EXPERIÊNCIA</a>
+          <a href="#projects">PROJETOS</a>
+          <a href="#skills">STACK</a>
+          <a href="#contact">CONTATO</a>
+
+          <div class="nav-controls-mobile">
+            <button
+              id="themeToggleMobile"
+              class="icon-btn"
+              type="button"
+              aria-label="Alternar tema claro/escuro"
+            >
+              <span class="theme-icon" aria-hidden="true">&#9789;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="nav-controls">
+          <button
+            id="themeToggle"
+            class="icon-btn"
+            type="button"
+            aria-label="Alternar tema claro/escuro"
+            title="Alternar tema"
+          >
+            <span class="theme-icon" aria-hidden="true">&#9789;</span>
+          </button>
+          <div class="status-badge">
+            <span class="dot"></span>DISPONÍVEL PARA TRABALHO
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- ============================== HERO ============================== -->
+      <section class="hero" id="hero">
+        <div class="hero-grid">
+          <div class="hero-inner reveal">
+            <p class="eyebrow">/* disponível para novos projetos */</p>
+            <h1>
+              DESENVOLVEDOR<br />
+              <span class="text-primary">FRONT-END JÚNIOR</span>
+            </h1>
+            <p class="hero-text">
+              Estudante de Engenharia de Software com foco em front-end.
+              Construí do zero uma aplicação React completa, sem
+              bibliotecas de UI, e entreguei sites institucionais para
+              clientes reais. Aprendizado rápido e atenção aos detalhes.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">Ver projetos</a>
+              <a href="#contact" class="btn btn-ghost">Fale comigo</a>
+            </div>
+          </div>
+
+          <div class="hero-portrait reveal">
+            <div class="tv" id="tvWidget">
+              <div class="tv-screen-frame">
+                <div class="tv-screen">
+                  <canvas id="tvCanvas"></canvas>
+                  <img
+                    id="tvPhoto"
+                    src="assets/img/profile.jpg"
+                    alt="Pedro Henrique da Silva"
+                    loading="lazy"
+                  />
+                  <div class="tv-scanlines" aria-hidden="true"></div>
+                  <div class="tv-off-overlay" aria-hidden="true"></div>
+                  <noscript>
+                    <style>
+                      #tvCanvas, .tv-buttons { display: none !important; }
+                      #tvPhoto { display: block !important; }
+                    </style>
+                  </noscript>
+                </div>
+              </div>
+              <div class="tv-controls">
+                <span class="tv-brand">PHSILVA&ndash;TV</span>
+                <div class="tv-buttons">
+                  <button
+                    id="tvPower"
+                    class="tv-btn tv-btn-power"
+                    type="button"
+                    aria-label="Ligar ou desligar a TV"
+                    aria-pressed="true"
+                  >
+                    <span class="tv-led" aria-hidden="true"></span>
+                  </button>
+                  <button
+                    id="tvChannel"
+                    class="tv-btn"
+                    type="button"
+                    aria-label="Trocar de canal"
+                  >
+                    CH &#9654;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== ABOUT ============================== -->
+      <section class="section" id="about">
+        <h2 class="section-title reveal"><span class="tag">01.</span> Sobre mim</h2>
+        <div class="about-grid reveal">
+          <div class="about-text">
+            <p>
+              Comecei a estudar programação sozinho durante a pandemia, e
+              em 2023 decidi entrar na faculdade de Engenharia de Software
+              pra me aprofundar nos estudos. O contato prático com
+              desenvolvimento web e banco de dados no suporte administrativo
+              da JURIMED me motivou a continuar, e hoje invisto em projetos
+              próprios, como o FluxoX, e em trabalhos reais para clientes,
+              como os sites institucionais que entreguei.
+            </p>
+            <p>
+              Hoje meu foco é consolidar a transição para uma posição de
+              desenvolvedor front-end júnior. No médio prazo, quero
+              aprofundar meu domínio em React e no ecossistema JavaScript, e
+              seguir explorando o back-end, PHP, Node e bancos de
+              dados, para me tornar um desenvolvedor full stack mais
+              completo.
+            </p>
+            <a
+              class="btn btn-ghost"
+              href="assets/files/curriculo.pdf"
+              target="_blank"
+              rel="noopener"
+              >Baixar currículo (PDF)</a
+            >
+          </div>
+          <ul class="about-facts">
+            <li><span>Base</span>Londrina, PR</li>
+            <li><span>Foco</span>Desenvolvimento Front-End &amp; Web</li>
+            <li>
+              <span>Formação</span>Eng. de Software &middot; UniFil (2023 &ndash; cursando)
+            </li>
+            <li><span>Idiomas</span>Português, Inglês (intermediário)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================== EXPERIENCE ============================== -->
+      <section class="section" id="experience">
+        <h2 class="section-title reveal"><span class="tag">02.</span> Experiência</h2>
+
+        <article class="experience-card reveal">
+          <header>
+            <h3>Auxiliar Administrativo / Apoio em TI &middot; JURIMED (Saúde e Segurança do Trabalho)</h3>
+            <time>2022 &ndash; Atual</time>
+          </header>
+          <ul>
+            <li>
+              Desenvolvi e dei manutenção ao website corporativo em PHP,
+              HTML e CSS, fortalecendo a presença digital da empresa.
+            </li>
+            <li>
+              Realizei consultas e manipulação de dados em MySQL, apoiando
+              processos internos.
+            </li>
+            <li>
+              Acompanhei o suporte técnico em ambiente Windows Server.
+            </li>
+            <li>
+              Treinei e supervisionei colaboradores terceirizados (MEI),
+              desenvolvendo habilidades iniciais de liderança e comunicação.
+            </li>
+            <li>
+              Atuo sob metas de entrega diárias e mensais, desenvolvendo
+              disciplina para priorizar tarefas, cumprir prazos e manter a
+              qualidade mesmo sob pressão.
+            </li>
+          </ul>
+        </article>
+
+        <ul class="cert-list reveal">
+          <li><strong>JavaScript</strong> &middot; Curso em Vídeo</li>
+          <li><strong>Python 3</strong> &middot; Curso em Vídeo</li>
+          <li>
+            <strong>Gestão de Projetos e Fundamentos de Métodos Ágeis</strong>
+            &middot; Santander Open Academy
+          </li>
+        </ul>
+      </section>
+
+      <!-- ============================== PROJECTS ============================== -->
+      <section class="section" id="projects">
+        <h2 class="section-title reveal"><span class="tag">03.</span> Projetos</h2>
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <div class="project-card-head">
+              <span class="project-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span class="project-path">~/projetos/fluxox</span>
+            </div>
+            <div class="project-shot">
+              <button
+                type="button"
+                class="project-shot-zoom"
+                data-full="assets/img/projects/fluxox.png"
+                data-alt="Captura de tela do dashboard do FluxoX"
+                aria-label="Ampliar captura de tela do FluxoX"
+              >
+                <img
+                  src="assets/img/projects/fluxox.png"
+                  alt="Captura de tela do dashboard do FluxoX"
+                  loading="lazy"
+                />
+                <span class="project-shot-hint" aria-hidden="true">&#128269; Ampliar</span>
+              </button>
+            </div>
+            <div class="project-card-body">
+              <div class="project-meta">
+                <span class="project-index">#01</span>
+                <span class="project-status">Projeto acadêmico &middot; Concluído</span>
+              </div>
+              <h3>FluxoX (Controle Financeiro Pessoal)</h3>
+              <p>
+                O maior desafio foi arquitetural, sem nenhuma lib de UI
+                pronta, cada componente (de modais a gráficos interativos
+                com Recharts) precisou ser pensado do zero, com estado e
+                reatividade geridos manualmente em React.
+              </p>
+              <button
+                type="button"
+                class="project-more-toggle"
+                data-target="fluxoxMore"
+              >Ler mais <span aria-hidden="true">&#8599;</span></button>
+              <dialog class="project-dialog" id="fluxoxMore">
+                <h4>Mais sobre o FluxoX</h4>
+                <p>
+                  O maior desafio foi arquitetural, sem nenhuma lib de UI
+                  pronta, cada componente (de modais a gráficos interativos
+                  com Recharts) precisou ser pensado do zero, com estado e
+                  reatividade geridos manualmente em React. Isso exigiu
+                  decisões conscientes sobre onde centralizar lógica e como
+                  manter os 24 componentes consistentes entre si, além de
+                  empacotar o projeto como PWA com Vite. O resultado mostra
+                  domínio dos fundamentos de React, não só o uso de uma
+                  biblioteca de componentes prontos.
+                </p>
+                <p>
+                  Para a separação automática entre gastos eletrônicos e
+                  físicos, implementei uma lógica de categorização baseada
+                  em regras simples, pensada pra já cobrir os casos mais
+                  comuns sem exigir configuração manual do usuário. Também
+                  priorizei feedback visual imediato: cada ação (adicionar,
+                  editar, excluir) atualiza os gráficos do Recharts em
+                  tempo real, sem recarregar a página. O projeto segue em
+                  evolução, com planos de adicionar autenticação de usuário
+                  e sincronização entre dispositivos.
+                </p>
+                <button type="button" class="btn btn-ghost" data-close-dialog>
+                  Fechar
+                </button>
+              </dialog>
+              <ul class="tags">
+                <li>React</li>
+                <li>Vite</li>
+                <li>Recharts</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://fluxo-x.vercel.app" target="_blank" rel="noopener">Ver demo</a>
+                <a href="https://github.com/pedrohenriquesilva-dev/FluxoX" target="_blank" rel="noopener">Código</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card-head">
+              <span class="project-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span class="project-path">~/projetos/degs-presentes</span>
+            </div>
+            <div class="project-shot">
+              <button
+                type="button"
+                class="project-shot-zoom"
+                data-full="assets/img/projects/degs-presentes.png"
+                data-alt="Captura de tela do site institucional Deg's Presentes"
+                aria-label="Ampliar captura de tela do Deg's Presentes"
+              >
+                <img
+                  src="assets/img/projects/degs-presentes.png"
+                  alt="Captura de tela do site institucional Deg's Presentes"
+                  loading="lazy"
+                />
+                <span class="project-shot-hint" aria-hidden="true">&#128269; Ampliar</span>
+              </button>
+            </div>
+            <div class="project-card-body">
+              <div class="project-meta">
+                <span class="project-index">#02</span>
+                <span class="project-status">Cliente real &middot; Concluído</span>
+              </div>
+              <h3>Site Institucional para Deg's Presentes</h3>
+              <p>
+                Aqui o desafio não foi técnico, foi de processo, reuni os
+                requisitos direto com a cliente, dona de uma loja física, e
+                precisei traduzir a identidade visual e o jeito de atender
+                da loja numa experiência digital que fizesse sentido pra
+                quem já conhecia a marca pessoalmente.
+              </p>
+              <button
+                type="button"
+                class="project-more-toggle"
+                data-target="degsMore"
+              >Ler mais <span aria-hidden="true">&#8599;</span></button>
+              <dialog class="project-dialog" id="degsMore">
+                <h4>Mais sobre o Deg's Presentes</h4>
+                <p>
+                  Aqui o desafio não foi técnico, foi de processo, reuni os
+                  requisitos direto com a cliente, dona de uma loja física,
+                  e precisei traduzir a identidade visual e o jeito de
+                  atender da loja numa experiência digital que fizesse
+                  sentido pra quem já conhecia a marca pessoalmente.
+                  Estruturei a navegação em torno das coleções e deixei o
+                  contato (WhatsApp e localização) sempre visível, já que o
+                  objetivo real do site era levar gente até a loja física,
+                  não vender online. Também cuidei da responsividade e dos
+                  ajustes finos de CSS dentro do Elementor pra manter a
+                  página rápida mesmo com várias imagens de produto.
+                </p>
+                <button type="button" class="btn btn-ghost" data-close-dialog>
+                  Fechar
+                </button>
+              </dialog>
+              <ul class="tags">
+                <li>WordPress</li>
+                <li>Elementor</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://degspresentes.com.br" target="_blank" rel="noopener">Ver site</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card-head">
+              <span class="project-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span class="project-path">~/projetos/chacara-vida-digna</span>
+            </div>
+            <div class="project-shot">
+              <button
+                type="button"
+                class="project-shot-zoom"
+                data-full="assets/img/projects/chacara-vida-digna.png"
+                data-alt="Captura de tela do site institucional Chácara Vida Digna"
+                aria-label="Ampliar captura de tela da Chácara Vida Digna"
+              >
+                <img
+                  src="assets/img/projects/chacara-vida-digna.png"
+                  alt="Captura de tela do site institucional Chácara Vida Digna"
+                  loading="lazy"
+                />
+                <span class="project-shot-hint" aria-hidden="true">&#128269; Ampliar</span>
+              </button>
+            </div>
+            <div class="project-card-body">
+              <div class="project-meta">
+                <span class="project-index">#03</span>
+                <span class="project-status">Cliente real &middot; Concluído</span>
+              </div>
+              <h3>Site Institucional para Chácara Vida Digna</h3>
+              <p>
+                O site precisava apresentar três produtos diferentes
+                dentro do mesmo espaço (eventos, cerimônias na capela e a
+                experiência do parreiral) sem confundir o visitante sobre
+                qual seção olhar.
+              </p>
+              <button
+                type="button"
+                class="project-more-toggle"
+                data-target="chacaraMore"
+              >Ler mais <span aria-hidden="true">&#8599;</span></button>
+              <dialog class="project-dialog" id="chacaraMore">
+                <h4>Mais sobre a Chácara Vida Digna</h4>
+                <p>
+                  O site precisava apresentar três produtos diferentes
+                  dentro do mesmo espaço (eventos, cerimônias na
+                  capela e a experiência do parreiral) sem confundir
+                  o visitante sobre qual seção olhar. Organizei o conteúdo
+                  em blocos claros pra cada uso, com fotos e descrições
+                  específicas, e priorizei o contato direto por WhatsApp
+                  como principal call-to-action, já que é assim que o
+                  público local fecha uma reserva. Como a maior parte do
+                  acesso é por celular (busca local do tipo "chácara para
+                  eventos em Londrina"), o foco de todo o trabalho de
+                  Elementor foi performance e responsividade mobile.
+                </p>
+                <button type="button" class="btn btn-ghost" data-close-dialog>
+                  Fechar
+                </button>
+              </dialog>
+              <ul class="tags">
+                <li>WordPress</li>
+                <li>Elementor</li>
+              </ul>
+              <div class="project-links">
+                <a href="https://chacaravidadigna.com.br" target="_blank" rel="noopener">Ver site</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <dialog class="project-dialog screenshot-lightbox" id="screenshotLightbox">
+          <img id="lightboxImage" src="" alt="" />
+          <button type="button" class="btn btn-ghost" data-close-dialog>
+            Fechar
+          </button>
+        </dialog>
+      </section>
+
+      <!-- ============================== SKILLS ============================== -->
+      <section class="section" id="skills">
+        <h2 class="section-title reveal"><span class="tag">04.</span> Stack &amp; Habilidades</h2>
+
+        <div class="devicon-row reveal" aria-hidden="true">
+          <i class="devicon-javascript-plain colored"></i>
+          <i class="devicon-css3-plain colored"></i>
+          <i class="devicon-html5-plain colored"></i>
+          <i class="devicon-typescript-plain colored"></i>
+          <i class="devicon-react-original colored"></i>
+          <i class="devicon-vitejs-plain colored"></i>
+          <i class="devicon-php-plain colored"></i>
+          <i class="devicon-mysql-plain colored"></i>
+          <i class="devicon-python-plain colored"></i>
+          <i class="devicon-nodejs-plain colored"></i>
+          <i class="devicon-git-plain colored"></i>
+        </div>
+
+        <p class="skills-caption reveal">
+          "Linguagens" é a média do código entre os repositórios em
+          <a href="https://github.com/pedrohenriquesilva-dev" target="_blank" rel="noopener"
+            >github.com/pedrohenriquesilva-dev</a
+          >. "Frameworks &amp; Bibliotecas" é a % de repositórios conhecidos
+          onde a dependência aparece de fato no código.
+        </p>
+
+        <div class="skills-grid">
+          <div class="skill-group reveal">
+            <h3>Linguagens</h3>
+            <div class="skill-row">
+              <div class="skill-label"><span>TypeScript</span><span>35%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 35%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>JavaScript</span><span>31%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 31%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>PHP</span><span>30%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 30%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>CSS</span><span>28%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 28%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>HTML</span><span>17%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 17%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3>Frameworks &amp; Bibliotecas</h3>
+            <div class="skill-row">
+              <div class="skill-label"><span>React</span><span>35%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 35%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>Vite / PWA</span><span>35%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 35%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3>Back-end &amp; Dados</h3>
+            <div class="skill-row">
+              <div class="skill-label"><span>MySQL</span><span>14%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 14%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>Python 3</span><span>20%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 20%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>Node.js / REST APIs</span><span>15%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 15%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3>Ferramentas</h3>
+            <div class="skill-row">
+              <div class="skill-label"><span>Git / GitHub</span><span>59%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 59%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>Windows Server</span><span>8%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 8%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label"><span>Pacote Office</span><span>50%</span></div>
+              <div class="skill-track"><div class="skill-bar" style="--pct: 50%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="soft-skills reveal">
+          <h3>Habilidades comportamentais</h3>
+          <ul class="tags">
+            <li>Trabalho em equipe</li>
+            <li>Comunicação</li>
+            <li>Organização</li>
+            <li>Aprendizado rápido</li>
+            <li>Liderança inicial</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================== CONTACT ============================== -->
+      <section class="section" id="contact">
+        <h2 class="section-title reveal"><span class="tag">05.</span> Vamos conversar</h2>
+
+        <div class="contact-grid reveal">
+          <form id="contactForm" class="contact-form" novalidate>
+            <input type="hidden" name="access_key" value="8e57c1dd-9c73-4ba3-8325-3f19bc60ed5c" />
+            <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
+
+            <label for="name">Nome</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+
+            <label for="message">Mensagem</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+            <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <ul class="contact-info">
+            <li>
+              <a href="mailto:contatophsilva08@gmail.com">contatophsilva08@gmail.com</a>
+            </li>
+            <li>
+              <a href="https://wa.me/5543991772743" target="_blank" rel="noopener"
+                >WhatsApp &middot; (43) 99177-2743</a
+              >
+            </li>
+            <li>
+              <a href="https://github.com/pedrohenriquesilva-dev" target="_blank" rel="noopener">GitHub</a>
+            </li>
+            <li>
+              <a href="https://linkedin.com/in/pedro-software" target="_blank" rel="noopener">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+
+    <footer>
+      <p>&copy; <span id="year"></span> Pedro Henrique da Silva.</p>
+      <button id="backToTop" class="icon-btn" type="button" aria-label="Voltar ao topo">&#8593;</button>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
